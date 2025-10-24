@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if post %}記事を編集{% else %}新しい記事を投稿{% endif %}{% endblock %}
+
+{% block content %}
+    <h2>{% if post %}記事を編集{% else %}新しい記事を投稿{% endif %}</h2>
+    <form method="POST">
+        <div>
+            <label for="title">タイトル:</label><br>
+            <input type="text" id="title" name="title" value="{{ post.title if post }}" required style="width: 98%;">
+        </div>
+        <br>
+        <div>
+            <label for="content">本文:</label><br>
+            <textarea id="content" name="content" required rows="15" style="width: 98%;">{{ post.content if post }}</textarea>
+        </div>
+        <br>
+        <button type="submit">{% if post %}更新{% else %}投稿{% endif %}</button>
+    </form>
+{% endblock %}

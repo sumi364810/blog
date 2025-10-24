@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マイブログ | {% block title %}{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        header { border-bottom: 1px solid #ccc; margin-bottom: 20px; }
+        .post { border: 1px solid #eee; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
+        .post-meta { font-size: 0.8em; color: #666; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="/">シンプルなブログ</a></h1>
+        <p><a href="/post">新しい記事を投稿</a></p>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
