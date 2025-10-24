@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -5,10 +6,20 @@ from datetime import datetime
 # Flaskアプリケーションの初期化
 app = Flask(__name__)
 
-# データベース設定 (SQLiteをプロジェクトフォルダ内に作成)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+# データベース設定 (PostgreSQLをプロジェクトフォルダ内に作成)
+# 1. 環境変数 'DATABASE_URL' からURLを取得。なければSQLiteのURLを使う。
+uri = os.environ.get('DATABASE_URL', 'sqlite:///blog.db')
+
+# 2. RenderのPostgreSQL接続情報（postgres://）をSQLAlchemyが認識する形式（postgresql://）
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+
+# 3. データベースURIを設定
+app.config['SQLALCHEMY_DATABASE_URI'] = uri # 取得したuriを設定
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+# ... (Postモデルの定義とルート関数は続く)
 
 # 記事のデータベースモデル
 class Post(db.Model):
